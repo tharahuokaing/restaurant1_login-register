@@ -1,70 +1,53 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // UI Elements
-  const authModal = document.getElementById('auth-modal');
-  const openLoginBtn = document.getElementById('open-login-btn');
-  const openRegisterBtn = document.getElementById('open-register-btn');
-  const closeAuthModalBtn = document.getElementById('close-auth-modal');
-
-  const loginView = document.getElementById('login-view');
-  const registerView = document.getElementById('register-view');
-
-  const switchToRegister = document.getElementById('switch-to-register');
-  const switchToLogin = document.getElementById('switch-to-login');
-
+// Tab Switching UI
+function switchTab(type) {
   const loginForm = document.getElementById('login-form');
   const registerForm = document.getElementById('register-form');
+  const tabLogin = document.getElementById('tab-login');
+  const tabRegister = document.getElementById('tab-register');
+  const alertBox = document.getElementById('auth-alert');
 
-  // Open Modal Functions
-  const showLogin = () => {
-    loginView.style.display = 'block';
-    registerView.style.display = 'none';
-    authModal.classList.add('active');
-  };
+  alertBox.className = 'auth-alert';
+  alertBox.style.display = 'none';
 
-  const showRegister = () => {
-    loginView.style.display = 'none';
-    registerView.style.display = 'block';
-    authModal.classList.add('active');
-  };
+  if (type === 'login') {
+    loginForm.classList.add('active');
+    registerForm.classList.remove('active');
+    tabLogin.classList.add('active');
+    tabRegister.classList.remove('active');
+  } else {
+    registerForm.classList.add('active');
+    loginForm.classList.remove('active');
+    tabRegister.classList.add('active');
+    tabLogin.classList.remove('active');
+  }
+}
 
-  const closeModal = () => {
-    authModal.classList.remove('active');
-  };
+// Form Handling UI Action
+function handleAuth(event, type) {
+  event.preventDefault();
+  const alertBox = document.getElementById('auth-alert');
 
-  // Event Listeners
-  openLoginBtn.addEventListener('click', showLogin);
-  openRegisterBtn.addEventListener('click', showRegister);
-  closeAuthModalBtn.addEventListener('click', closeModal);
+  if (type === 'login') {
+    const user = document.getElementById('login-user').value;
+    showAlert(`សូមស្វាគមន៍! អ្នកបានចូលប្រើប្រាស់ជោគជ័យ: ${user}`, 'success');
+  } else if (type === 'register') {
+    const pass = document.getElementById('reg-pass').value;
+    const confirmPass = document.getElementById('reg-confirm-pass').value;
 
-  switchToRegister.addEventListener('click', (e) => {
-    e.preventDefault();
-    showRegister();
-  });
-
-  switchToLogin.addEventListener('click', (e) => {
-    e.preventDefault();
-    showLogin();
-  });
-
-  // Close modal when clicking outside of the content container
-  authModal.addEventListener('click', (e) => {
-    if (e.target === authModal) {
-      closeModal();
+    if (pass !== confirmPass) {
+      showAlert('ពាក្យសម្ងាត់ និងការបញ្ជាក់ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ!', 'error');
+      return;
     }
-  });
 
-  // Handle Form Submissions
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const username = document.getElementById('login-username').value;
-    alert(`ជោគជ័យ: បានចូលប្រព័ន្ធដោយឈ្មោះ ${username} (Branch 1)`);
-    closeModal();
-  });
+    showAlert('ការចុះឈ្មោះជោគជ័យ! សូមចូលប្រើប្រាស់ប្រព័ន្ធ។', 'success');
+    setTimeout(() => {
+      switchTab('login');
+    }, 1500);
+  }
+}
 
-  registerForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const fullname = document.getElementById('reg-fullname').value;
-    alert(`ជោគជ័យ: បានបង្កើតគណនីជូន ${fullname} (Branch 1)`);
-    closeModal();
-  });
-});
+function showAlert(message, styleClass) {
+  const alertBox = document.getElementById('auth-alert');
+  alertBox.textContent = message;
+  alertBox.className = `auth-alert ${styleClass}`;
+}
