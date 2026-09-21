@@ -3,26 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ហួ កាំង 5 Star - Branch 1 | Authentication</title>
+  <title>Imperial POS - ភោជនីយដ្ឋាន ហួ កាំង (Branch 1)</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="bank.jpg">
+  <link rel="icon" href="logo_restaurant.jpg">
+  
 </head>
 <body>
 
-  <main class="auth-wrapper">
+  <!-- =========================================================
+       SECTION A: AUTHENTICATION MODULE (LOGIN / REGISTER)
+       ========================================================= -->
+  <div id="auth-container" class="auth-wrapper">
     <div class="auth-card">
       
       <!-- Brand Header -->
       <header class="brand-header">
         <div class="brand-badge">BRANCH 1</div>
         <h1 class="brand-title">ហួ កាំង 5 Star</h1>
-        <p class="brand-subtitle">ប្រព័ន្ធចូលប្រើប្រាស់ និងចុះឈ្មោះ</p>
+        <p class="brand-subtitle">ប្រព័ន្ធគ្រប់គ្រងការលក់ Imperial POS</p>
       </header>
 
-      <!-- Segment Toggle Switch -->
+      <!-- Toggle Tabs -->
       <nav class="auth-toggle-group">
         <button id="tab-login" class="toggle-btn active" onclick="switchTab('login')">ចូលប្រព័ន្ធ</button>
         <button id="tab-register" class="toggle-btn" onclick="switchTab('register')">ចុះឈ្មោះ</button>
@@ -68,12 +72,120 @@
         <button type="submit" class="btn-auth-submit">បង្កើតគណនី</button>
       </form>
 
+      <!-- Alert Message Box -->
       <div id="auth-alert" class="auth-alert"></div>
 
     </div>
-  </main>
+  </div>
+
+  <!-- =========================================================
+       SECTION B: MAIN IMPERIAL POS SYSTEM DASHBOARD
+       ========================================================= -->
+  <div id="pos-system" class="pos-wrapper hidden">
+    
+    <!-- Top HUD Navigation Header -->
+    <header class="top-bar">
+      <div class="brand-pos-title">
+        <h2>Imperial POS - ភោជនីយដ្ឋាន ហួ កាំង</h2>
+        <span class="branch-tag">Branch 1</span>
+      </div>
+
+      <input type="text" id="search-input" placeholder="ស្វែងរកមុខម្ហូប ឬភេសជ្ជៈ..." />
+
+      <div class="hud-action-group">
+        <button class="meta-voice-btn">
+          <span class="pulse-ring"></span>
+          <span class="icon">🎙️</span> Voice HUD
+        </button>
+        <button class="btn-analytics-open">📊 របាយការណ៍</button>
+        <button class="btn-ledger-open">📜 បញ្ជីលក់</button>
+        <button class="btn-auth-open" onclick="logout()">🚪 ចាកចេញ</button>
+      </div>
+    </header>
+
+    <!-- Main POS Grid Content -->
+    <div class="pos-container">
+      
+      <!-- Menu Catalog Area -->
+      <main class="menu-section">
+        <div class="category-tabs">
+          <button class="cat-btn active">ទាំងអស់</button>
+          <button class="cat-btn">ម្ហូបពិសេស</button>
+          <button class="cat-btn">ភេសជ្ជៈ</button>
+          <button class="cat-btn">បង្អែម</button>
+        </div>
+
+        <div class="menu-grid">
+          <!-- Sample Food Card 1 -->
+          <div class="menu-card" onclick="addToCart('បាយឆាក្តាម 5 Star', 6.50)">
+            <div class="card-img-placeholder">🦀</div>
+            <div class="card-info">
+              <h3>បាយឆាក្តាម 5 Star</h3>
+              <p class="price">$6.50</p>
+            </div>
+          </div>
+
+          <!-- Sample Food Card 2 -->
+          <div class="menu-card" onclick="addToCart('ស៊ុបពិសេស ហួ កាំង', 12.00)">
+            <div class="card-img-placeholder">🍲</div>
+            <div class="card-info">
+              <h3>ស៊ុបពិសេស ហួ កាំង</h3>
+              <p class="price">$12.00</p>
+            </div>
+          </div>
+
+          <!-- Sample Food Card 3 -->
+          <div class="menu-card" onclick="addToCart('កាហ្វេតឹកដោះគោទឹកកក', 2.50)">
+            <div class="card-img-placeholder">☕</div>
+            <div class="card-info">
+              <h3>កាហ្វេទឹកដោះគោទឹកកក</h3>
+              <p class="price">$2.50</p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Cart & Receipt Checkout Panel -->
+      <aside id="cart">
+        
+        <div class="invoice-header">
+          <div class="invoice-logo-badge">5★</div>
+          <h3 class="invoice-title">ភោជនីយដ្ឋាន ហួ កាំង</h3>
+          <p class="invoice-subtitle">វិក្កយបត្រ / Invoice - Branch 1</p>
+        </div>
+
+        <div id="cart-list">
+          <!-- Cart items load here dynamically -->
+          <p class="empty-cart-msg">មិនទាន់មានមុខទំនិញក្នុងកន្ត្រក</p>
+        </div>
+
+        <div class="summary-section">
+          <div class="summary-line">
+            <span>សរុបរង (Subtotal):</span>
+            <span id="subtotal-val">$0.00</span>
+          </div>
+          <div class="summary-line">
+            <span>ពន្ធ (Tax 5%):</span>
+            <span id="tax-val">$0.00</span>
+          </div>
+          <div class="summary-line grand-total">
+            <span>សរុបរួម ($):</span>
+            <span id="total-val">$0.00</span>
+          </div>
+
+          <div id="bank-area">
+            <span>ប្រាក់រៀលសរុប:</span>
+            <div id="riel-total">0 ៛</div>
+          </div>
+
+          <button class="btn-check" onclick="processCheckout()">ទូទាត់ប្រាក់ (Checkout)</button>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
 
   <script src="script.js"></script>
-  <script src="ultra_secure_mode.js"></script>
 </body>
 </html>
