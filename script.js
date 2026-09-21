@@ -1,53 +1,35 @@
-// Tab Switching UI
-function switchTab(type) {
-  const loginForm = document.getElementById('login-form');
-  const registerForm = document.getElementById('register-form');
-  const tabLogin = document.getElementById('tab-login');
-  const tabRegister = document.getElementById('tab-register');
-  const alertBox = document.getElementById('auth-alert');
-
-  alertBox.className = 'auth-alert';
-  alertBox.style.display = 'none';
-
-  if (type === 'login') {
-    loginForm.classList.add('active');
-    registerForm.classList.remove('active');
-    tabLogin.classList.add('active');
-    tabRegister.classList.remove('active');
-  } else {
-    registerForm.classList.add('active');
-    loginForm.classList.remove('active');
-    tabRegister.classList.add('active');
-    tabLogin.classList.remove('active');
-  }
-}
-
-// Form Handling UI Action
 function handleAuth(event, type) {
-  event.preventDefault();
-  const alertBox = document.getElementById('auth-alert');
+  event.preventDefault(); // Prevent default form submission page reload
 
-  if (type === 'login') {
-    const user = document.getElementById('login-user').value;
-    showAlert(`សូមស្វាគមន៍! អ្នកបានចូលប្រើប្រាស់ជោគជ័យ: ${user}`, 'success');
-  } else if (type === 'register') {
+  if (type === 'register') {
+    // 1. Password confirmation check
     const pass = document.getElementById('reg-pass').value;
     const confirmPass = document.getElementById('reg-confirm-pass').value;
 
     if (pass !== confirmPass) {
-      showAlert('ពាក្យសម្ងាត់ និងការបញ្ជាក់ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ!', 'error');
+      alert('ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ! (Passwords do not match)');
       return;
     }
 
-    showAlert('ការចុះឈ្មោះជោគជ័យ! សូមចូលប្រើប្រាស់ប្រព័ន្ធ។', 'success');
-    setTimeout(() => {
-      switchTab('login');
-    }, 1500);
-  }
-}
+    // 2. Perform registration logic/API call here...
 
-function showAlert(message, styleClass) {
-  const alertBox = document.getElementById('auth-alert');
-  alertBox.textContent = message;
-  alertBox.className = `auth-alert ${styleClass}`;
+    alert('ចុះឈ្មោះជោគជ័យ! សូមចូលប្រព័ន្ធ។ (Registration successful! Please log in.)');
+
+    // 3. Switch active form to login form
+    document.getElementById('register-form').classList.remove('active');
+    document.getElementById('login-form').classList.add('active');
+
+    // Optional: Reset register form inputs
+    event.target.reset();
+
+  } else if (type === 'login') {
+    const user = document.getElementById('login-user').value;
+    const pass = document.getElementById('login-pass').value;
+
+    // 1. Perform login validation/API call here...
+
+    // 2. Redirect to main POS page
+    // Change 'pos.html' to your actual file path or page URL
+    window.location.href = 'pos.html'; 
+  }
 }
