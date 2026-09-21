@@ -1,13 +1,12 @@
 /* =========================================================
-   1. CORE DESIGN SYSTEM & CYBERPUNK THEME VARIABLES
+   1. CORE VARIABLES & CYBERPUNK LED BACKGROUND
    ========================================================= */
 :root {
   --bg-dark: #000814;
-  --panel-bg: rgba(0, 20, 40, 0.78);
-  --panel-border: rgba(0, 255, 255, 0.28);
+  --panel-bg: rgba(0, 20, 40, 0.85);
+  --panel-border: rgba(0, 255, 255, 0.3);
   --cyan-primary: #00ffff;
-  --cyan-glow: rgba(0, 255, 255, 0.35);
-  --cyan-soft: rgba(0, 255, 255, 0.08);
+  --cyan-glow: rgba(0, 255, 255, 0.45);
   --text-primary: #e0ffff;
   --text-accent: #00ff88;
   --danger-red: #ff4d4d;
@@ -15,7 +14,7 @@
   --radius-lg: 20px;
   --radius-md: 12px;
   --radius-sm: 8px;
-  --backdrop-blur: blur(16px);
+  --backdrop-blur: blur(20px);
 }
 
 * {
@@ -28,39 +27,34 @@ body {
   min-height: 100vh;
   background: var(--bg-dark);
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(0, 255, 255, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 85% 85%, rgba(0, 255, 136, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 15% 15%, rgba(0, 255, 255, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(0, 255, 136, 0.12) 0%, transparent 45%),
     linear-gradient(180deg, #000814 0%, #001224 100%);
   background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-khmer);
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* =========================================================
-   2. AUTHENTICATION MODULE STYLES (LOGIN/REGISTER)
-   ========================================================= */
-.auth-wrapper {
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
 }
 
-.auth-card {
+/* =========================================================
+   2. AUTH CARD & GLASSMORPHISM CONTAINER
+   ========================================================= */
+.auth-wrapper {
   width: 100%;
   max-width: 440px;
+}
+
+.auth-card {
   background: linear-gradient(145deg, rgba(0, 20, 40, 0.88), rgba(0, 10, 25, 0.95));
   border: 1px solid var(--panel-border);
   border-radius: var(--radius-lg);
   padding: 32px 24px;
   backdrop-filter: var(--backdrop-blur);
   -webkit-backdrop-filter: var(--backdrop-blur);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 30px var(--cyan-glow);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 30px var(--cyan-glow), inset 0 0 15px rgba(0, 255, 255, 0.05);
   position: relative;
   overflow: hidden;
 }
@@ -75,6 +69,9 @@ body {
   background: linear-gradient(90deg, transparent, var(--cyan-primary), transparent);
 }
 
+/* =========================================================
+   3. BRAND HEADER
+   ========================================================= */
 .brand-header {
   text-align: center;
   margin-bottom: 24px;
@@ -89,8 +86,9 @@ body {
   font-weight: 700;
   padding: 4px 12px;
   border-radius: 50px;
-  box-shadow: 0 0 10px var(--cyan-glow);
+  letter-spacing: 1px;
   margin-bottom: 10px;
+  box-shadow: 0 0 10px var(--cyan-glow);
 }
 
 .brand-title {
@@ -103,9 +101,13 @@ body {
 
 .brand-subtitle {
   font-size: 0.88rem;
+  color: var(--text-primary);
   opacity: 0.8;
 }
 
+/* =========================================================
+   4. TOGGLE SWITCH & FORMS
+   ========================================================= */
 .auth-toggle-group {
   display: flex;
   background: rgba(0, 8, 20, 0.6);
@@ -151,10 +153,12 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Inputs & Labels */
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  text-align: left;
 }
 
 .form-group label {
@@ -178,9 +182,10 @@ body {
 
 .form-group input:focus {
   border-color: var(--cyan-primary);
-  box-shadow: 0 0 15px var(--cyan-glow);
+  box-shadow: 0 0 15px var(--cyan-glow), inset 0 0 8px rgba(0, 255, 255, 0.15);
 }
 
+/* Submit Button */
 .btn-auth-submit {
   width: 100%;
   padding: 14px;
@@ -203,6 +208,11 @@ body {
   transform: translateY(-2px);
 }
 
+.btn-auth-submit:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Notification Alert */
 .auth-alert {
   display: none;
   margin-top: 16px;
@@ -224,278 +234,4 @@ body {
   background: rgba(255, 77, 77, 0.15);
   border: 1px solid var(--danger-red);
   color: var(--danger-red);
-}
-
-/* =========================================================
-   3. IMPERIAL POS MAIN DASHBOARD STYLES
-   ========================================================= */
-.pos-wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 24px;
-  background: linear-gradient(180deg, rgba(0, 25, 50, 0.88) 0%, rgba(0, 15, 30, 0.78) 100%);
-  border-bottom: 1px solid var(--panel-border);
-  backdrop-filter: var(--backdrop-blur);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.brand-pos-title h2 {
-  font-size: 1.1rem;
-  color: #ffffff;
-}
-
-.branch-tag {
-  font-size: 0.75rem;
-  color: var(--cyan-primary);
-}
-
-#search-input {
-  width: 100%;
-  max-width: 300px;
-  padding: 10px 18px;
-  background: rgba(0, 10, 25, 0.75);
-  border: 1px solid var(--panel-border);
-  border-radius: 50px;
-  color: var(--cyan-primary);
-  font-family: var(--font-khmer);
-  outline: none;
-}
-
-.hud-action-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn-auth-open, .btn-analytics-open, .btn-ledger-open {
-  background: rgba(0, 255, 255, 0.08);
-  border: 1px solid var(--panel-border);
-  color: var(--cyan-primary);
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
-  font-family: var(--font-khmer);
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-auth-open:hover, .btn-analytics-open:hover, .btn-ledger-open:hover {
-  background: var(--cyan-primary);
-  color: var(--bg-dark);
-}
-
-/* POS Container Layout */
-.pos-container {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 20px;
-  padding: 20px;
-  flex: 1;
-}
-
-.category-tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.cat-btn {
-  background: rgba(0, 20, 40, 0.6);
-  border: 1px solid var(--panel-border);
-  color: var(--text-primary);
-  padding: 8px 18px;
-  border-radius: 50px;
-  font-family: var(--font-khmer);
-  cursor: pointer;
-}
-
-.cat-btn.active {
-  background: var(--cyan-primary);
-  color: var(--bg-dark);
-  font-weight: 700;
-}
-
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 16px;
-}
-
-.menu-card {
-  background: var(--panel-bg);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.menu-card:hover {
-  border-color: var(--cyan-primary);
-  transform: translateY(-3px);
-  box-shadow: 0 0 15px var(--cyan-glow);
-}
-
-.card-img-placeholder {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.card-info h3 {
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-}
-
-.card-info .price {
-  color: var(--text-accent);
-  font-weight: 700;
-}
-
-/* Receipt & Cart Container */
-#cart {
-  background: linear-gradient(145deg, rgba(0, 20, 40, 0.85), rgba(0, 10, 25, 0.95));
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.invoice-header {
-  text-align: center;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px dashed var(--panel-border);
-}
-
-.invoice-logo-badge {
-  width: 48px;
-  height: 48px;
-  line-height: 48px;
-  margin: 0 auto 8px auto;
-  background: var(--cyan-soft);
-  border: 1px solid var(--cyan-primary);
-  border-radius: 50%;
-  color: var(--cyan-primary);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.invoice-title {
-  color: #ffffff;
-  font-size: 1.1rem;
-}
-
-.invoice-subtitle {
-  font-size: 0.8rem;
-  opacity: 0.7;
-}
-
-#cart-list {
-  flex: 1;
-  max-height: 320px;
-  overflow-y: auto;
-  margin-bottom: 16px;
-}
-
-.empty-cart-msg {
-  text-align: center;
-  font-size: 0.85rem;
-  opacity: 0.5;
-  margin-top: 40px;
-}
-
-.summary-section {
-  background: rgba(0, 255, 255, 0.04);
-  border: 1px solid rgba(0, 255, 255, 0.18);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.summary-line {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-}
-
-.summary-line.grand-total {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #ffffff;
-  border-top: 1px dashed var(--panel-border);
-  padding-top: 10px;
-}
-
-#bank-area {
-  background: rgba(0, 255, 136, 0.05);
-  border: 1px solid rgba(0, 255, 136, 0.2);
-  border-radius: var(--radius-sm);
-  padding: 8px 12px;
-  text-align: center;
-  margin: 8px 0;
-}
-
-#riel-total {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text-accent);
-}
-
-.btn-check {
-  width: 100%;
-  padding: 14px;
-  background: var(--cyan-primary);
-  border: none;
-  border-radius: var(--radius-md);
-  color: var(--bg-dark);
-  font-family: var(--font-khmer);
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 0 20px var(--cyan-glow);
-  transition: all 0.2s ease;
-}
-
-.btn-check:hover {
-  background: #ffffff;
-  box-shadow: 0 0 30px var(--cyan-primary);
-}
-
-/* Meta Voice HUD Button */
-.meta-voice-btn {
-  position: relative;
-  background: var(--cyan-soft);
-  border: 1.5px solid var(--cyan-primary);
-  color: var(--cyan-primary);
-  padding: 8px 16px;
-  border-radius: 50px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-khmer);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 900px) {
-  .pos-container {
-    grid-template-columns: 1fr;
-  }
 }
