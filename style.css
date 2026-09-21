@@ -139,13 +139,10 @@ body {
 
 .auth-form {
   display: none;
-  flex-direction: column;
-  gap: 16px;
 }
 
 .auth-form.active {
-  display: flex;
-  animation: formFadeIn 0.3s ease forwards;
+  display: block;
 }
 
 @keyframes formFadeIn {
