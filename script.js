@@ -38,7 +38,7 @@ function handleAuth(event, type) {
     // Redirect to Imperial POS page after 1.2 seconds
     setTimeout(() => {
       // Replace 'pos.html' with your target POS dashboard page file name or URL
-      window.location.href = 'pos.html'; 
+      window.location.href = 'https://tharahuokaing.github.io/restaurant1/'; 
     }, 1200);
 
   } else if (type === 'register') {
